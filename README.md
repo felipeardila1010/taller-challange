@@ -1,4 +1,4 @@
-
+# Taller Challange
 
 # Postgress locally
 
@@ -6,8 +6,14 @@
 docker pull postgres
 ```
 
-Run postgress
+*Run postgress*
 
 ```bash
-    docker run -d --name my-postgres -p 5432:5432 -e POSTGRES_PASSWORD=your_secure_password postgres
+    docker run --name my-postgres -p 5432:5432 -e POSTGRES_PASSWORD=password -v $(pwd)/db/init.sql:/docker-entrypoint-initdb.d/init.sql postgres
+```
+
+# Run service
+
+```bash
+uv run fastapi dev src/api
 ```
