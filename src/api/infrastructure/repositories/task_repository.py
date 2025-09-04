@@ -1,7 +1,7 @@
 
 import os
 import psycopg
-from api.domain.task import Task
+from api.domain.task import Task, TaskCreate
 
 class TaskRepository:
     def __init__(self):
@@ -19,7 +19,7 @@ class TaskRepository:
             rows = cursor.fetchall()
         return [Task(id=row[0], title=row[1], description=row[2]) for row in rows]
 
-    def create_task(self, task: Task):
+    def create_task(self, task: TaskCreate):
         with self.connection.cursor() as cursor:
             cursor.execute(
                 "INSERT INTO tasks (title, description) VALUES (%s, %s) RETURNING id;",

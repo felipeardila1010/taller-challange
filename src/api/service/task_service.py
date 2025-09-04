@@ -1,4 +1,4 @@
-from api.domain.task import Task
+from api.domain.task import Task, TaskCreate
 from api.infrastructure.repositories.task_repository import TaskRepository
 
 class TaskService:
@@ -8,7 +8,7 @@ class TaskService:
     def get_tasks(self):
         return self.repository.get_all_tasks()
 
-    def create_task(self, task_data: Task):
+    def create_task(self, task_data: TaskCreate):
         return self.repository.create_task(task_data)
 
     def update_task(self, task_id: int, task_data: Task):

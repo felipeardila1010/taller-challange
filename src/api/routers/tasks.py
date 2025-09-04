@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from api.service.task_service import TaskService
-from api.domain.task import Task
+from api.domain.task import Task, TaskCreate
 from pydantic import ValidationError
 
 router = APIRouter()
@@ -16,14 +16,10 @@ async def get_tasks(
 
 @router.post("/api/tasks")
 async def create_task(
-    task: dict
+    task: TaskCreate
 ):
-    try:
-        validated_task = Task(**task)
-    except ValidationError as e:
-        raise HTTPException(status_code=400, detail=e.errors())
-    task = taskService.create_task(validated_task)
-    return {"message": "Task created", "task": task}
+    task_id = taskService.create_task(task)
+    return {"message": "Task created", "task_id": task_id}
 
 @router.put("/api/tasks/{task_id}")
 async def update_task(
